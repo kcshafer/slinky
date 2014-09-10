@@ -1,0 +1,4 @@
+{
+    "shell_cmd": "sudo slinky -b -f $file_name",
+    "working_dir": "${project_path:${folder}}",
+}
