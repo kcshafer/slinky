@@ -13,7 +13,7 @@ def cwd():
 
 sys.path.append('/Users/kcshafer/workspace/slinky/')
 
-from app import utils, deploy, generate
+from app import utils, deploy, generate, retrieve
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Develop with Salesforce')
@@ -23,7 +23,7 @@ if __name__ == '__main__':
     parser.add_argument('--retrieve', '-R', action='store_true', help='Retrieve components')
     parser.add_argument('--deploy', '-D', action='store_true', help='Deploy components')
     parser.add_argument('--build', '-b', action='store_true', help='Build a single file')
-    parser.add_argument('--generate', action='store_true', help='generate code templates - ')
+    parser.add_argument('--generate', action='store_true', help='generate code templates')
 
     ## nouns ## 
     parser.add_argument('--username', '-u', action='store', type=str)
@@ -48,31 +48,9 @@ if __name__ == '__main__':
         print os.getcwd()
         parser.error("Must run slinky --auth first to generate credentials file")
     elif args.retrieve:
-        client = MetadataClient()
-        u, p, ip = utils.retrieve_credentials()
-        client.login(u, p, is_production=p)
-        retrieve_request = client.retrieve('src/package.xml')
-        while client.check_status(retrieve_request.id)[0].done == False:
-            pass
-        retrieve_response = client.check_retrieve_status(retrieve_request.id)
-        binary_to_zip(retrieve_response.zipFile)
-        shutil.move('retrieve.zip', 'src/retrieve.zip')
-        os.system('unzip -uo src/retrieve.zip -d src/ ')
+        retrieve.retrieve(args.file)
     elif args.deploy:
-        client = MetadataClient()
-        u, p, ip = utils.retrieve_credentials()
-        client.login(u, p, is_production=p)
-        zip('src/')
-        deploy_request = client.deploy('deploy.zip')
-        while True:
-            deploy_status = client.check_deploy_status(deploy_request.id)
-            if deploy_status.done:
-                break
-            else:
-                print deploy_status.status
-                time.sleep(3)
-        deploy_response = client.check_deploy_status(deploy_request.id)
-        print "Deployment %s %s" % (deploy_response.id, deploy_response.status)
+        deploy.deploy()
     elif args.build:
         if args.file:
             deploy.build(args.file)

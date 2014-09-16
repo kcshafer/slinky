@@ -2,20 +2,23 @@ import ConfigParser
 from lxml import etree
 
 METADATA_TYPES = {
-    'object' : 'CustomObject',
-    'cls'   : 'ApexClass', 
-    'page'    :  'ApexPage',
+    'object'   : 'CustomObject',
+    'cls'      : 'ApexClass', 
+    'page'     : 'ApexPage',
+    'resource' : 'StaticResource',
 }
 
 METADATA_DIRS = {
-    'object' : 'objects',
-    'cls'   : 'classes'
-}
+    'object'   : 'objects',
+    'cls'      : 'classes',
+    'resource' : 'staticresources',
+ }
 
 CODE_FILES = [
     'cls',
     'page',
-    'trigger'
+    'trigger',
+    'resource',
 ]
 
 NS = "http://soap.sforce.com/2006/04/metadata"
@@ -54,6 +57,6 @@ def build_package(member, type, dir, v='30.0'):
     name.text = METADATA_TYPES.get(type)
     version = etree.SubElement(new_pkg, 'version')
     version.text = v
-    with open(dir + "package.xml", "w") as f:
+    with open(dir + "package.xml", "w+") as f:
         #the doc type header needs to be appended on in front 
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n' + etree.tostring(new_pkg, pretty_print=True))

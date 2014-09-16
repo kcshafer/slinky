@@ -41,3 +41,18 @@ def build(filename):
     print deploy_response
     print "Deployment %s %s" % (deploy_response.id, deploy_response.status)
 
+def deploy():
+    client = MetadataClient()
+    u, p, ip = utils.retrieve_credentials()
+    client.login(u, p, is_production=p)
+    zip('src/')
+    deploy_request = client.deploy('deploy.zip')
+    while True:
+        deploy_status = client.check_deploy_status(deploy_request.id)
+        if deploy_status.done:
+            break
+        else:
+            print deploy_status.status
+            time.sleep(3)
+    deploy_response = client.check_deploy_status(deploy_request.id)
+    print "Deployment %s %s" % (deploy_response.id, deploy_response.status)

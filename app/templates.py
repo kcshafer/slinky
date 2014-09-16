@@ -7,6 +7,23 @@ public class {name} {{
 }}
 '''
 
+batch_class = '''
+global class {name} implements Database.Batchable<SObject> {{
+	
+	global Database.QueryLocator start(Database.BatchableContext bc){{
+
+	}}
+
+	global void execute(Database.BatchableContext bc, List<SObject> scope){{
+
+	}}
+
+	global void finish(Database.BatchableContext bc){{
+
+	}}
+}}	
+'''
+
 controller = '''
 public class {name} {{
 	
@@ -57,3 +74,4 @@ page_metadata = '''
     <label>{name}</label>
 </ApexPage>
 '''
+

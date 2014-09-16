@@ -2,38 +2,43 @@ import os
 
 from app import templates
 
-DIRS = {
-	'class' : 'classes',
-	'standardPage' : 'pages',
-}
+CLASSES = [
+	'class',
+	'batchClass'
+]
 
-EXTENSIONS = {
-	'class' : 'cls',
-	'standardPage' : 'page',
-}
-
+PAGES = [
+	'standardPage',
+	'customPage',
+	'hybridPage'
+]
 
 def generate(t, n, o):
-	if t == 'class':
-		cls(n)
-	if t in ['customPage', 'standardPage', 'hybridPage']:
+	if t in CLASSES:
+		cls(t, n)
+	if t in PAGES:
 		page(t, n, o)
 
 def cls(t, n, o=None): 
+	contents = 'NO CONTENT WAS GENERATED'
 	if t == 'class':
 		f = open('src/classes/' + n + '.cls', 'w+')
-		f.write(templates.cls.format(name=n).lstrip())
-		f.close()
+		contents = templates.cls.format(name=n)
+	elif t == 'batchClass':
+		f = open('src/classes/' + n + '.cls', 'w+')
+		contents = templates.batch_class.format(name=n)
 	elif t == 'controller':
 		n = n + 'Controller'
 		f = open('src/classes/' + n + '.cls', 'w+')
-		f.write(templates.controller.format(name=n).lstrip())
-		f.close()
+		contents = templates.controller.format(name=n)
 	elif t == 'controller_extension':
 		n = n + 'ControllerExtension'
 		f = open('src/classes/' + n + '.cls', 'w+')
-		f.write(templates.controller_extension.format(name=n, object=o).lstrip())
-		f.close()
+		contents = templates.controller_extension.format(name=n, object=o)
+
+	f.write(contents.lstrip())
+	f.close()
+
 	f = open('src/classes/' + n + '.cls-meta.xml', 'w+')
 	f.write(templates.cls_metadata.lstrip())
 	f.close()
