@@ -28,6 +28,7 @@ if __name__ == '__main__':
     ## nouns ## 
     parser.add_argument('--username', '-u', action='store', type=str)
     parser.add_argument('--password', '-p', type=str, action='store')
+    parser.add_argument('--rsrc', action='store_true', help='Modify build or retrieve for packaged resources')
     parser.add_argument('--production', '-P', action='store_true', help='Authenticate with production')
     parser.add_argument('--file', '-f', type=str, action='store', help='File to build')
     parser.add_argument('--name', '-n', type=str, default=None, action='store', help='Name of new file')
@@ -48,11 +49,17 @@ if __name__ == '__main__':
         print os.getcwd()
         parser.error("Must run slinky --auth first to generate credentials file")
     elif args.retrieve:
-        retrieve.retrieve(args.file)
+        if args.rsrc:
+            retrieve.retrieve_resource(args.name)
+        else:    
+            retrieve.retrieve(args.file)
     elif args.deploy:
         deploy.deploy()
     elif args.build:
-        if args.file:
-            deploy.build(args.file)
+        if args.rsrc:
+            deploy.build_resource(args.dir)
         else:
-            parser.error('Must include a file to build with -f or --file')
+            if args.file:
+                deploy.build(args.file)
+            else:
+                parser.error('Must include a file to build with -f or --file')

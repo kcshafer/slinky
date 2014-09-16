@@ -22,3 +22,11 @@ def retrieve(filename, dir='src/'):
     binary_to_zip(retrieve_response.zipFile)
     shutil.move('retrieve.zip', dir + 'retrieve.zip')
     os.system('unzip -uo ' + dir + '/retrieve.zip -d ' + dir)
+
+def retrieve_resource(name):
+    retrieve(name + '.resource', dir='.rsrc/')
+    f = open('.rsrc/staticresources/' + name + '.resource', 'r')
+    tf = open('.rsrc/resource.zip', 'w+')
+    tf.write(f.read())
+    tf.close()
+    os.system('unzip -uo .rsrc/resource.zip -d .rsrc/')
