@@ -18,6 +18,8 @@ def generate(t, n, o):
 		cls(t, n)
 	if t in PAGES:
 		page(t, n, o)
+	if t == 'trigger':
+		trigger(n)
 
 def cls(t, n, o=None): 
 	contents = 'NO CONTENT WAS GENERATED'
@@ -60,3 +62,13 @@ def page(t, n, o):
 		cls('controller_extension', n, o=o)
 	f = open('src/pages/' + n + '.page-meta.xml', 'w+')
 	f.write(templates.page_metadata.format(name=n).lstrip())
+
+def trigger(n):
+	if not os.path.exists('src/triggers'):
+		os.mkdir('src/triggers')
+	f = open('src/triggers/' + n + '.trigger', 'w+')
+	f.write(templates.trigger.format(name=n))
+	f.close()
+	f = open('src/triggers/' + n + '.trigger-meta.xml', 'w+')
+	f.write(templates.trigger_metadata.lstrip())
+	f.close()

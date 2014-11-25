@@ -59,6 +59,12 @@ hybrid_page = '''
 <apex:page>
 '''
 
+trigger = '''
+trigger {name} on sObject () {{
+
+}}
+'''
+
 cls_metadata = '''
 <?xml version="1.0" encoding="UTF-8"?>
 	<ApexClass xmlns="http://soap.sforce.com/2006/04/metadata">
@@ -74,4 +80,14 @@ page_metadata = '''
     <label>{name}</label>
 </ApexPage>
 '''
+
+trigger_metadata = '''
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexTrigger xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>31.0</apiVersion>
+    <status>Active</status>
+</ApexTrigger>
+'''
+
+
 

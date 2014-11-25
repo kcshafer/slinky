@@ -10,7 +10,8 @@ from app import utils
 def retrieve(filename, dir='src/'):
     client = MetadataClient()
     u, p, ip = utils.retrieve_credentials()
-    client.login(u, p, is_production=p)
+    ip = True if ip == 'True' else False
+    client.login(u, p, is_production=ip)
     if not os.path.exists(dir):
         os.mkdir(dir)
     name, type = (filename.split("."))

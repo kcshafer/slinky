@@ -6,12 +6,14 @@ METADATA_TYPES = {
     'cls'      : 'ApexClass', 
     'page'     : 'ApexPage',
     'resource' : 'StaticResource',
+    'trigger'  : 'ApexTrigger',
 }
 
 METADATA_DIRS = {
     'object'   : 'objects',
     'cls'      : 'classes',
     'resource' : 'staticresources',
+    'trigger'  : 'triggers',
  }
 
 CODE_FILES = [

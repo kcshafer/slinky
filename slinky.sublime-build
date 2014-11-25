@@ -1,4 +1,6 @@
 {
-    "shell_cmd": "slinky -b -f $file_name",
+
+	"cmd" : ["slinky", "-b", "-f", "$file_name"],
     "working_dir": "${project_path:${folder}}",
+    "path" : "/usr/local/bin/" 
 }
