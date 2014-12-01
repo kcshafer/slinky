@@ -70,7 +70,7 @@ cls_metadata = '''
 	<ApexClass xmlns="http://soap.sforce.com/2006/04/metadata">
 	<apiVersion>30.0</apiVersion>
 	<status>Active</status>
-</ApexClass>'
+</ApexClass>
 '''
 
 page_metadata = ''' 

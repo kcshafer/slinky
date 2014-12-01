@@ -47,7 +47,7 @@ def retrieve_credentials():
     r = 'production'
     return cp.get(c, u), cp.get(c, p), cp.get(c, r)
 
-def build_package(member, type, dir, v='30.0'):
+def build_package(member, type, dir, v='29.0'):
     new_pkg = etree.Element("Package")
     new_pkg.attrib['xmlns'] = "http://soap.sforce.com/2006/04/metadata"
     apiLevel = etree.SubElement(new_pkg,'apiAccessLevel')
