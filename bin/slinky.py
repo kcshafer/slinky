@@ -11,7 +11,7 @@ from pyrannosaurus.utils import binary_to_zip, zip
 def cwd():
     return os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
-sys.path.append('/Users/kcshafer/workspace/slinky/')
+sys.path.append('/Users/kc/workspace/slinky/')
 
 from app import utils, deploy, generate, retrieve
 
@@ -29,6 +29,7 @@ if __name__ == '__main__':
     parser.add_argument('--username', '-u', action='store', type=str)
     parser.add_argument('--password', '-p', type=str, action='store')
     parser.add_argument('--rsrc', action='store_true', help='Modify build or retrieve for packaged resources')
+    parser.add_argument('--pkg', action='store_true', help='Modifiy retrieve to use prepared package manifest')
     parser.add_argument('--production', '-P', action='store_true', help='Authenticate with production')
     parser.add_argument('--file', '-f', type=str, action='store', help='File to build')
     parser.add_argument('--name', '-n', type=str, default=None, action='store', help='Name of new file')
@@ -51,6 +52,8 @@ if __name__ == '__main__':
     elif args.retrieve:
         if args.rsrc:
             retrieve.retrieve_resource(args.name)
+        if args.pkg:
+            retrieve.retrieve_package()
         else:    
             retrieve.retrieve(args.file)
     elif args.deploy:
