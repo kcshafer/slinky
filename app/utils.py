@@ -14,6 +14,7 @@ METADATA_DIRS = {
     'cls'      : 'classes',
     'resource' : 'staticresources',
     'trigger'  : 'triggers',
+    'page'     : 'pages'
  }
 
 CODE_FILES = [
